@@ -1,0 +1,54 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="table-responsive" style="max-height: 500px; overflow-y: scroll;">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Images</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each links}}
+                    <tr>
+                        <td>
+                            <img src="{{url}}" alt="{{title}}" style="max-width: 100px;">
+                        </td>
+                        <td>
+                            {{title}}
+                        </td>
+                        <td>{{description}}</td>
+                        <td>{{timeago created_at}}</td>
+                        <td>
+                            <a class="btn btn-danger delete-link" href="/links/delete/{{id}}" data-id="{{id}}">Delete</a>
+                            <a class="btn btn-secondary" href="/links/edit/{{id}}">Edit</a>
+                        </td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            There are not Objects saved yet. <a href="/links/add">Create One!</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Agrega el script JavaScript para mostrar la alerta -->
+<script>
+    document.querySelectorAll('.delete-link').forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const linkId = this.getAttribute('data-id');
+            if (confirm("¿Desea eliminar el objeto? SI o NO")) {
+                window.location.href = "/links/delete/" + linkId;
+            }
+        });
+    });
+</script>
